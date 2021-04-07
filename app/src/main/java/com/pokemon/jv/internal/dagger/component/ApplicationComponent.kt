@@ -10,6 +10,7 @@ import com.pokemon.jv.internal.dagger.module.ApplicationModule
 import com.pokemon.jv.internal.dagger.module.LocalDatabaseModule
 import com.pokemon.jv.internal.dagger.module.NetworkModule
 import com.pokemon.jv.ui.base.BaseActivity
+import com.pokemon.jv.ui.base.BaseFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,8 +18,9 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class, LocalDatabaseModule::class, NetworkModule::class])
 interface ApplicationComponent {
     fun inject(activity: BaseActivity)
+    fun inject(fragment: BaseFragment)
     fun context(): Context
-    //fun threadExecutor(): ThreadExecutor
+    fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
     fun rxBus(): RxBus
     fun userRepository(): UserRepository

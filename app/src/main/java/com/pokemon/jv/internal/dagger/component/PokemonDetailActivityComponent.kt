@@ -4,8 +4,8 @@ import com.pokemon.jv.internal.dagger.PerActivity
 import com.pokemon.jv.ui.activities.PokemonDetailActivity
 import dagger.Component
 
-@PerActivity
-@Component(dependencies = [ApplicationComponent::class])
+//@PerActivity
+//@Component(dependencies = [ApplicationComponent::class])
 interface PokemonDetailActivityComponent {
-    fun inject(activity: PokemonDetailActivity)
+    //fun inject(activity: PokemonDetailActivity)
 }

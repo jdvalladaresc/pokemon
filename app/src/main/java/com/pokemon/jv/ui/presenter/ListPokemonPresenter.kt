@@ -7,7 +7,7 @@ import com.pokemon.jv.ui.base.BasePresenter
 import com.pokemon.jv.ui.views.ListPokemonView
 import javax.inject.Inject
 
-class ListPokemonPresenter @Inject constructor(private val listPokemonUseCase: ListPokemonUseCase) :
+class ListPokemonPresenter @Inject constructor(val listPokemonUseCase: ListPokemonUseCase) :
     BasePresenter<ListPokemonView> {
     private lateinit var view: ListPokemonView
 
@@ -32,13 +32,13 @@ class ListPokemonPresenter @Inject constructor(private val listPokemonUseCase: L
         listPokemonUseCase.execute(ListPokemonObservable())
     }
 
-    inner class ListPokemonObservable : DefaultObserver<Pokemon>() {
+    inner class ListPokemonObservable : DefaultObserver<List<Pokemon>>() {
         override fun onStart() {
             super.onStart()
             view.showLoading()
         }
 
-        override fun onNext(t: Pokemon) {
+        override fun onNext(t: List<Pokemon>) {
             super.onNext(t)
             view.successListPokemon(t)
         }

@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import com.pokemon.domain.model.Pokemon
-import com.pokemon.jv.R
 import com.pokemon.jv.databinding.FragmentListPokemonBinding
 import com.pokemon.jv.internal.dagger.component.DaggerListPokemonFragmentComponent
 import com.pokemon.jv.ui.ListPokemonViewModel
@@ -16,10 +14,12 @@ import com.pokemon.jv.ui.presenter.ListPokemonPresenter
 import com.pokemon.jv.ui.views.ListPokemonView
 import javax.inject.Inject
 
-class ListPokemonFragment @Inject constructor(private val presenter: ListPokemonPresenter) :
+class ListPokemonFragment :
     BaseFragment(),
     ListPokemonView {
 
+    @Inject
+    lateinit var presenter: ListPokemonPresenter
     private lateinit var listPokemonViewModel: ListPokemonViewModel
     private lateinit var binding: FragmentListPokemonBinding
 
@@ -44,13 +44,12 @@ class ListPokemonFragment @Inject constructor(private val presenter: ListPokemon
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        presenter.sendRequest(0, 20)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initUI()
     }
 
-    override fun successListPokemon(model: Pokemon) {
+    override fun successListPokemon(model: List<Pokemon>) {
 
     }
 
@@ -64,6 +63,7 @@ class ListPokemonFragment @Inject constructor(private val presenter: ListPokemon
 
     override fun initUI() {
         presenter.setView(this)
+        presenter.sendRequest(0, 20)
     }
 
     override fun context(): Context {
@@ -76,5 +76,20 @@ class ListPokemonFragment @Inject constructor(private val presenter: ListPokemon
 
     override fun showErrorNetworkMessage(message: String) {
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.destroy()
     }
 }

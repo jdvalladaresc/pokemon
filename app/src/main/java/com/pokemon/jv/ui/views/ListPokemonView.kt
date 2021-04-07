@@ -4,5 +4,5 @@ import com.pokemon.domain.model.Pokemon
 import com.pokemon.jv.ui.base.LoadingView
 
 interface ListPokemonView : LoadingView {
-    fun successListPokemon(model: Pokemon)
+    fun successListPokemon(model: List<Pokemon>)
 }

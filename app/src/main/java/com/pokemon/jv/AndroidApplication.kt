@@ -7,6 +7,7 @@ import com.pokemon.jv.internal.dagger.module.ApplicationModule
 
 class AndroidApplication : Application() {
     private lateinit var mApplicationComponent: ApplicationComponent
+
     override fun onCreate() {
         super.onCreate()
         initializeInjector()
