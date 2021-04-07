@@ -5,23 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pokemon.domain.model.Pokemon
 import com.pokemon.jv.databinding.FragmentListPokemonBinding
 import com.pokemon.jv.internal.dagger.component.DaggerListPokemonFragmentComponent
 import com.pokemon.jv.ui.ListPokemonViewModel
+import com.pokemon.jv.ui.adapters.ListPokemonAdapter
 import com.pokemon.jv.ui.base.BaseFragment
 import com.pokemon.jv.ui.presenter.ListPokemonPresenter
 import com.pokemon.jv.ui.views.ListPokemonView
+import kotlinx.android.synthetic.main.loading.*
 import javax.inject.Inject
 
 class ListPokemonFragment :
     BaseFragment(),
-    ListPokemonView {
+    ListPokemonView, ListPokemonAdapter.ListPokemonCallback {
 
     @Inject
     lateinit var presenter: ListPokemonPresenter
     private lateinit var listPokemonViewModel: ListPokemonViewModel
     private lateinit var binding: FragmentListPokemonBinding
+
+    @Inject
+    lateinit var adapter: ListPokemonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,20 +55,23 @@ class ListPokemonFragment :
         initUI()
     }
 
-    override fun successListPokemon(model: List<Pokemon>) {
-
+    override fun successListPokemon(list: List<Pokemon>) {
+        adapter.addItems(list)
     }
 
     override fun showLoading() {
-
+        loading.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-
+        loading.visibility = View.GONE
     }
 
     override fun initUI() {
         presenter.setView(this)
+        adapter.setListPokemonCallback(this)
+        binding.rvPokemons.layoutManager = LinearLayoutManager(context())
+        binding.rvPokemons.adapter = adapter
         presenter.sendRequest(0, 20)
     }
 
@@ -91,5 +100,9 @@ class ListPokemonFragment :
     override fun onDestroy() {
         super.onDestroy()
         presenter.destroy()
+    }
+
+    override fun onClick(model: Pokemon, position: Int) {
+
     }
 }
