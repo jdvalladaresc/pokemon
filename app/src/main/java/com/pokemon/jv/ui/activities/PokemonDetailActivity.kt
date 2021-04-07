@@ -3,14 +3,17 @@ package com.pokemon.jv.ui.activities
 import android.content.Context
 import android.os.Bundle
 import com.pokemon.jv.R
+import com.pokemon.jv.databinding.ActivityPokemonDetailBinding
 import com.pokemon.jv.ui.base.BaseActivity
 import com.pokemon.jv.ui.views.PokemonDetailView
 
 class PokemonDetailActivity : BaseActivity(), PokemonDetailView {
+    private lateinit var binding: ActivityPokemonDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pokemon_detail)
+        binding = ActivityPokemonDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun showLoading() {

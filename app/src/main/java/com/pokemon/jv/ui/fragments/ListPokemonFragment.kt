@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.pokemon.domain.model.Pokemon
 import com.pokemon.jv.R
+import com.pokemon.jv.databinding.FragmentListPokemonBinding
 import com.pokemon.jv.internal.dagger.component.DaggerListPokemonFragmentComponent
 import com.pokemon.jv.ui.ListPokemonViewModel
 import com.pokemon.jv.ui.base.BaseFragment
@@ -20,6 +21,7 @@ class ListPokemonFragment @Inject constructor(private val presenter: ListPokemon
     ListPokemonView {
 
     private lateinit var listPokemonViewModel: ListPokemonViewModel
+    private lateinit var binding: FragmentListPokemonBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +39,9 @@ class ListPokemonFragment @Inject constructor(private val presenter: ListPokemon
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        listPokemonViewModel =
-            ViewModelProviders.of(this).get(ListPokemonViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_list_pokemon, container, false)
-        /*val textView: TextView = root.findViewById(R.id.text_home)
-        listPokemonViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-         */
-        return root
+        //listPokemonViewModel = ViewModelProviders.of(this).get(ListPokemonViewModel::class.java)
+        binding = FragmentListPokemonBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
