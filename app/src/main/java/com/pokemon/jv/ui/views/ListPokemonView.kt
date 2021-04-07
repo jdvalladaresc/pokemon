@@ -1,6 +1,8 @@
 package com.pokemon.jv.ui.views
 
-import com.pokemon.jv.ui.base.BaseView
+import com.pokemon.domain.model.Pokemon
+import com.pokemon.jv.ui.base.LoadingView
 
-interface ListPokemonView : BaseView {
+interface ListPokemonView : LoadingView {
+    fun successListPokemon(model: Pokemon)
 }

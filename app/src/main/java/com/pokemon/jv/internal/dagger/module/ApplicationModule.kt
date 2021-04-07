@@ -20,13 +20,6 @@ class ApplicationModule(private val mApplication: AndroidApplication) {
     fun provideApplicationContext(): Context {
         return mApplication
     }
-/*
-    @Provides
-    @Singleton
-    fun provideThreadExecutor(jobExecutor: JobExecutor): ThreadExecutor {
-        return jobExecutor
-    }
- */
 
     @Provides
     @Singleton
@@ -48,7 +41,7 @@ class ApplicationModule(private val mApplication: AndroidApplication) {
 
     @Provides
     @Singleton
-    fun providePreferenceManager(context: Context?): PreferencesManager {
+    fun providePreferenceManager(context: Context): PreferencesManager {
         return PreferencesManager(context)
     }
 }

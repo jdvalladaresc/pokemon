@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class UIThread @Inject constructor() : PostExecutionThread {
-    override fun getScheduler(): Scheduler? {
+    override fun getScheduler(): Scheduler {
         return AndroidSchedulers.mainThread()
     }
 }

@@ -15,7 +15,7 @@ class PokemonDetailPresenter @Inject constructor() : BasePresenter<PokemonDetail
 
     }
 
-    override fun stop() {
+    override fun destroy() {
 
     }
 

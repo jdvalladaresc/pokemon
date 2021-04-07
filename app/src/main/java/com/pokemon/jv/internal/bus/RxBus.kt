@@ -3,11 +3,10 @@ package com.pokemon.jv.internal.bus
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RxBus @Inject constructor() {
+class RxBus {
     private val mSubject: Subject<Any> =
         PublishSubject.create()
 

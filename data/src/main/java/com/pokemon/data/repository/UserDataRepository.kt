@@ -9,7 +9,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserDataRepository @Inject constructor(private val mRestApi: RestApi) : UserRepository {
+class UserDataRepository @Inject constructor(private val mRestApi: RestApi) :
+    UserRepository {
+
     override fun getPokemonList(offset: Int, limit: Int): Observable<List<Pokemon>> {
         return mRestApi.getPokemonList(offset, limit).map(ListPokemonMapper::transform)
     }

@@ -8,9 +8,12 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.Disposables
 import io.reactivex.schedulers.Schedulers
 
-abstract class UseCase {
+abstract class UseCase(
+    open val threadExecutor: ThreadExecutor,
+    open val postExecutionThread: PostExecutionThread) {
     private var disposable = Disposables.empty()
 
+    /*
     private lateinit var threadExecutor: ThreadExecutor
     private lateinit var postExecutionThread: PostExecutionThread
 
@@ -21,15 +24,16 @@ abstract class UseCase {
         this.threadExecutor = threadExecutor!!
         this.postExecutionThread = postExecutionThread!!
     }
+     */
 
     protected abstract fun buildUseCaseObservable(): Observable<*>
 
-    fun execute(useCaseSubscriber: Observer<in Any?>?) {
+    fun execute(useCaseSubscriber: Observer<*>) {
         unSubscribe()
         disposable = buildUseCaseObservable()
             .subscribeOn(Schedulers.from(threadExecutor))
             .observeOn(postExecutionThread.getScheduler())
-            .subscribeWith(useCaseSubscriber) as Disposable
+            .subscribeWith(useCaseSubscriber as Observer<Any>) as Disposable
     }
 
     fun unSubscribe() {
