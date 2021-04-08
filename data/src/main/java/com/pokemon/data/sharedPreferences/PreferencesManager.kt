@@ -8,23 +8,33 @@ import javax.inject.Singleton
 class PreferencesManager @Inject constructor(private val context: Context) {
     fun save(input: String?) {
         val editor = context.getSharedPreferences(
-            KEY_,
+            PREFERENCES,
             Context.MODE_PRIVATE
         ).edit()
-        editor.putString(KEY_, input)
+        editor.putString(KEY_USERNAME, input)
         editor.apply()
     }
 
-    val lastAppointmentId: Int
+    fun clear() {
+        val editor = context.getSharedPreferences(
+            PREFERENCES,
+            Context.MODE_PRIVATE
+        ).edit()
+        editor.clear()
+        editor.apply()
+    }
+
+    val getUsername: String?
         get() {
             val prefs = context.getSharedPreferences(
-                KEY_,
+                PREFERENCES,
                 Context.MODE_PRIVATE
             )
-            return prefs.getInt(KEY_, 0)
+            return prefs.getString(KEY_USERNAME, "")
         }
 
     companion object {
-        private const val KEY_ = "key_"
+        private const val PREFERENCES = "pokemon"
+        private const val KEY_USERNAME = "key_username"
     }
 }
