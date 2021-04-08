@@ -1,6 +1,6 @@
 # README #
 
-Proyecto desarrollado para consumir [servicios de Pokemon](https://pokeapi.co/api/v2)
+Proyecto desarrollado para consumir [servicios de Pokemon](https://pokeapi.co/)
 Este desarrollo tiene lo siguiente:
   * CleanArquitecture con MVP
   * Base de datos Room
