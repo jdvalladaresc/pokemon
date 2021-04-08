@@ -9,9 +9,9 @@ import com.pokemon.data.local.tables.PokemonTable
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemons")
-    fun getAll(): List<PokemonTable>
+    @Query("SELECT * FROM pokemons where id between :start and :end")
+    fun getAll(start: Int, end: Int): List<PokemonTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(entity: PokemonTable?)
+    fun insert(entity: List<PokemonTable>)
 }

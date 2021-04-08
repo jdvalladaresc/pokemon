@@ -30,7 +30,7 @@ class ListPokemonAdapter @Inject constructor() :
                 if (model.url != null) {
                     val imageUrl = model.url!!
                     val idPokemon = imageUrl.substring(
-                        imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/"),
+                        imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/") + 1,
                         imageUrl.length - 1
                     )
                     Glide.with(context)

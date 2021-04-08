@@ -4,6 +4,7 @@ import android.content.Context
 import com.pokemon.data.sharedPreferences.PreferencesManager
 import com.pokemon.domain.executor.PostExecutionThread
 import com.pokemon.domain.executor.ThreadExecutor
+import com.pokemon.domain.repository.UserLocalRepository
 import com.pokemon.domain.repository.UserRepository
 import com.pokemon.jv.internal.bus.RxBus
 import com.pokemon.jv.internal.dagger.module.ApplicationModule
@@ -23,6 +24,7 @@ interface ApplicationComponent {
     fun threadExecutor(): ThreadExecutor
     fun postExecutionThread(): PostExecutionThread
     fun rxBus(): RxBus
+    fun userLocalRepository(): UserLocalRepository
     fun userRepository(): UserRepository
     fun preferenceManager(): PreferencesManager
 }

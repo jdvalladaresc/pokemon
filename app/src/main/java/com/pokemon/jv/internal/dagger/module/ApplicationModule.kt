@@ -3,10 +3,12 @@ package com.pokemon.jv.internal.dagger.module
 import android.content.Context
 import com.pokemon.data.executor.JobExecutor
 import com.pokemon.data.repository.UserDataRepository
+import com.pokemon.data.repository.UserLocalDataRepository
 import com.pokemon.data.sharedPreferences.PreferencesManager
 import com.pokemon.domain.executor.PostExecutionThread
 import com.pokemon.domain.executor.ThreadExecutor
 import com.pokemon.domain.repository.UserRepository
+import com.pokemon.domain.repository.UserLocalRepository
 import com.pokemon.jv.AndroidApplication
 import com.pokemon.jv.UIThread
 import com.pokemon.jv.internal.bus.RxBus
@@ -33,6 +35,12 @@ class ApplicationModule(private val mApplication: AndroidApplication) {
     @Singleton
     fun provideThreadExecutor(jobExecutor: JobExecutor): ThreadExecutor {
         return jobExecutor
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserLocalDataRepository(userLocalDataRepository: UserLocalDataRepository): UserLocalRepository {
+        return userLocalDataRepository
     }
 
     @Provides

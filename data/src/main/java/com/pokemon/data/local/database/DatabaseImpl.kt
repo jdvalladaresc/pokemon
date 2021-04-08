@@ -7,10 +7,10 @@ import com.pokemon.domain.model.Pokemon
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 
-class DatabaseImpl(val localDatabase: LocalDatabase) : Database {
-    override fun getAllPokemon(): Observable<List<Pokemon>> {
+class DatabaseImpl(val database: LocalDatabase) : Database {
+    override fun getAllPokemon(offset: Int, limit: Int): Observable<List<Pokemon>> {
         return Observable.create { emitter: ObservableEmitter<List<Pokemon>> ->
-            val pokemons: List<PokemonTable> = localDatabase.getPokemonDao().getAll()
+            val pokemons: List<PokemonTable> = database.getPokemonDao().getAll(offset, limit)
             if (!emitter.isDisposed) {
                 if (pokemons == null || pokemons.isEmpty()) {
                     emitter.onError(PokemonException("No data"))
@@ -18,6 +18,16 @@ class DatabaseImpl(val localDatabase: LocalDatabase) : Database {
                     emitter.onNext(PokemonTableDataMapper.transform(pokemons))
                     emitter.onComplete()
                 }
+            }
+        }
+    }
+
+    override fun savePokemon(data: List<Pokemon>): Observable<Void> {
+        return Observable.create { emitter: ObservableEmitter<Void> ->
+            database.getPokemonDao()
+                .insert(PokemonTableDataMapper.transformList(data))
+            if (!emitter.isDisposed) {
+                emitter.onComplete()
             }
         }
     }
