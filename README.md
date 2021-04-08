@@ -1,29 +1,18 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Proyecto desarrollado para consumir [servicios de Pokemon](https://pokeapi.co/api/v2)
+Este desarrollo tiene lo siguiente:
+  * CleanArquitecture con MVP
+  * Base de datos Room
+  * RxAndroid
+  * SharedPreference
+  * Glide
 
-### What is this repository for? ###
+Los datos de login son:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Usuario: *pokemon*
+* Password: *pokemon*
 
-### How do I get set up? ###
+Desarrollado por
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+**[José David Valladares Cáceres](mailto:jose.valladares@mail.udp.cl)**
