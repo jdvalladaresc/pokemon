@@ -7,14 +7,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "pokemons")
 class PokemonTable {
     @PrimaryKey
-    private var id = 0
+    var id = 0
 
     @ColumnInfo(name = "name")
-    private var name: String? = null
+    var name: String? = null
 
     @ColumnInfo(name = "url")
-    private var url: String? = null
-
-    @ColumnInfo(name = "photo_url")
-    private var photoUrl: String? = null
+    var url: String? = null
 }

@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.pokemon.domain.model.Pokemon
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.pokemon.jv.R
 import com.pokemon.jv.databinding.ItemPokemonListBinding
+import com.pokemon.jv.model.PokemonModel
 import javax.inject.Inject
 
 class ListPokemonAdapter @Inject constructor() :
@@ -15,34 +17,39 @@ class ListPokemonAdapter @Inject constructor() :
     lateinit var binding: ItemPokemonListBinding
     lateinit var context: Context
     lateinit var callback: ListPokemonCallback
-    var list = ArrayList<Pokemon>()
+    var list = ArrayList<PokemonModel?>()
 
     fun setListPokemonCallback(callback: ListPokemonCallback) {
         this.callback = callback
     }
 
     inner class ListPokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(model: Pokemon, position: Int) {
-            binding.tvName.text = model.name
-            //https://pokeapi.co/api/v2/pokemon/19/
-            if (model.url != null) {
-                val imageUrl = model.url!!
-                val idPokemon = imageUrl.substring(
-                    imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/"),
-                    imageUrl.length - 1
-                )
-                Glide.with(context)
-                    .load("https://pokeres.bastionbot.org/images/pokemon/$idPokemon.png")
-                    .into(binding.ivImage)
-            }
-            binding.root.setOnClickListener {
-                callback.onClick(model, position)
+        fun bind(model: PokemonModel?, position: Int) {
+            if (model != null) {
+                binding.tvName.text = model.name
+                if (model.url != null) {
+                    val imageUrl = model.url!!
+                    val idPokemon = imageUrl.substring(
+                        imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/"),
+                        imageUrl.length - 1
+                    )
+                    Glide.with(context)
+                        .load("https://pokeres.bastionbot.org/images/pokemon/$idPokemon.png")
+                        .placeholder(R.drawable.ic_placeholder)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .skipMemoryCache(false)
+                        .into(binding.ivImage)
+                }
+                binding.root.setOnClickListener {
+                    callback.onClick(model, position)
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        binding = ItemPokemonListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding =
+            ItemPokemonListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         context = parent.context
         return ListPokemonViewHolder(binding.root)
     }
@@ -52,11 +59,12 @@ class ListPokemonAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val viewHolder = holder as ListPokemonViewHolder
-        viewHolder.bind(list[position], position)
+        if (holder is ListPokemonViewHolder) {
+            holder.bind(list[position], position)
+        }
     }
 
-    fun addItems(data: List<Pokemon>) {
+    fun addItems(data: ArrayList<PokemonModel?>) {
         list.clear()
         list.addAll(data)
         notifyDataSetChanged()
@@ -67,6 +75,6 @@ class ListPokemonAdapter @Inject constructor() :
     }
 
     interface ListPokemonCallback {
-        fun onClick(model: Pokemon, position: Int)
+        fun onClick(model: PokemonModel, position: Int)
     }
 }

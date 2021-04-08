@@ -1,7 +1,7 @@
 package com.pokemon.data.network
 
 import android.content.Context
-import com.pokemon.data.network.model.NamedApiResourceList
+import com.pokemon.data.entity.NamedApiResourceList
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import retrofit2.Call

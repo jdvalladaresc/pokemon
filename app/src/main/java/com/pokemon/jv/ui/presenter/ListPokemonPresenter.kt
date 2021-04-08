@@ -3,6 +3,7 @@ package com.pokemon.jv.ui.presenter
 import com.pokemon.domain.interactor.DefaultObserver
 import com.pokemon.domain.interactor.ListPokemonUseCase
 import com.pokemon.domain.model.Pokemon
+import com.pokemon.jv.model.mapper.PokemonModelMapper
 import com.pokemon.jv.ui.base.BasePresenter
 import com.pokemon.jv.ui.views.ListPokemonView
 import javax.inject.Inject
@@ -27,7 +28,7 @@ class ListPokemonPresenter @Inject constructor(val listPokemonUseCase: ListPokem
         this.view = view
     }
 
-    fun sendRequest(offset: Int, limit: Int) {
+    fun getPokemonList(offset: Int, limit: Int) {
         listPokemonUseCase.bindParams(offset, limit)
         listPokemonUseCase.execute(ListPokemonObservable())
     }
@@ -40,7 +41,7 @@ class ListPokemonPresenter @Inject constructor(val listPokemonUseCase: ListPokem
 
         override fun onNext(t: List<Pokemon>) {
             super.onNext(t)
-            view.successListPokemon(t)
+            view.successListPokemon(PokemonModelMapper.transform(t))
         }
 
         override fun onError(e: Throwable) {

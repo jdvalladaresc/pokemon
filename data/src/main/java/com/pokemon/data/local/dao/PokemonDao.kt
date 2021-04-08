@@ -10,8 +10,8 @@ import com.pokemon.data.local.tables.PokemonTable
 interface PokemonDao {
 
     @Query("SELECT * FROM pokemons")
-    fun getAll(): List<PokemonTable?>?
+    fun getAll(): List<PokemonTable>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(notification: PokemonTable?)
+    fun insert(entity: PokemonTable?)
 }
