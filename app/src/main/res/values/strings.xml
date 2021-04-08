@@ -9,4 +9,9 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Pokemon\'s</string>
+    <string name="lbl_type">Tipo</string>
+    <string name="lbl_evolution">Evolución</string>
+    <string name="lbl_moves">Ataques</string>
+    <string name="lbl_abilities">Habilidades</string>
+    <string name="lbl_encounters">Ubicaciones</string>
 </resources>

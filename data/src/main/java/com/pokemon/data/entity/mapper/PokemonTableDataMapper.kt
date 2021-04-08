@@ -1,12 +1,12 @@
 package com.pokemon.data.entity.mapper
 
 import com.pokemon.data.local.tables.PokemonTable
-import com.pokemon.domain.model.Pokemon
+import com.pokemon.domain.model.PokemonListItem
 import kotlin.collections.ArrayList
 
 object PokemonTableDataMapper {
-    fun transform(listEntities: List<PokemonTable>): List<Pokemon> {
-        val list: MutableList<Pokemon> = ArrayList()
+    fun transform(listEntities: List<PokemonTable>): List<PokemonListItem> {
+        val list: MutableList<PokemonListItem> = ArrayList()
         for (entity in listEntities) {
             val data = transform(entity)
             if (data != null)
@@ -15,14 +15,14 @@ object PokemonTableDataMapper {
         return list
     }
 
-    private fun transform(entity: PokemonTable?): Pokemon? {
+    private fun transform(entity: PokemonTable?): PokemonListItem? {
         if (entity == null) {
             return null
         }
-        return Pokemon(entity.id, entity.name, entity.url)
+        return PokemonListItem(entity.id, entity.name, entity.url)
     }
 
-    fun transformList(list: List<Pokemon>): List<PokemonTable> {
+    fun transformList(list: List<PokemonListItem>): List<PokemonTable> {
         val entities = ArrayList<PokemonTable>()
         for (item in list) {
             val data = PokemonTable()

@@ -1,9 +1,9 @@
 package com.pokemon.domain.repository
 
-import com.pokemon.domain.model.Pokemon
+import com.pokemon.domain.model.PokemonListItem
 import io.reactivex.Observable
 
 interface UserLocalRepository {
-    fun getLocalPokemonList(offset: Int, limit: Int): Observable<List<Pokemon>>
-    fun saveLocalPokemonList(data: List<Pokemon>): Observable<Void>
+    fun getLocalPokemonList(offset: Int, limit: Int): Observable<List<PokemonListItem>>
+    fun saveLocalPokemonList(data: List<PokemonListItem>): Observable<Void>
 }

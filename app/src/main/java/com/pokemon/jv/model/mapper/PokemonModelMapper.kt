@@ -1,11 +1,11 @@
 package com.pokemon.jv.model.mapper
 
-import com.pokemon.domain.model.Pokemon
+import com.pokemon.domain.model.PokemonListItem
 import com.pokemon.jv.model.PokemonModel
 import java.util.*
 
 object PokemonModelMapper {
-    fun transform(entity: List<Pokemon>?): List<PokemonModel>? {
+    fun transform(entity: List<PokemonListItem>?): List<PokemonModel>? {
         if (entity == null) {
             return null
         }
@@ -18,7 +18,7 @@ object PokemonModelMapper {
         return list
     }
 
-    private fun transform(entity: Pokemon?): PokemonModel? {
+    private fun transform(entity: PokemonListItem?): PokemonModel? {
         if (entity == null) {
             return null
         }

@@ -5,7 +5,7 @@ import com.pokemon.domain.interactor.DefaultObserver
 import com.pokemon.domain.interactor.GetListPokemonUseCase
 import com.pokemon.domain.interactor.GetLocalListPokemonUseCase
 import com.pokemon.domain.interactor.local.SaveListPokemonUseCase
-import com.pokemon.domain.model.Pokemon
+import com.pokemon.domain.model.PokemonListItem
 import com.pokemon.jv.model.mapper.PokemonModelMapper
 import com.pokemon.jv.ui.base.BasePresenter
 import com.pokemon.jv.ui.views.ListPokemonView
@@ -49,13 +49,13 @@ class ListPokemonPresenter @Inject constructor(
         }
     }
 
-    inner class LocalListPokemonObservable : DefaultObserver<List<Pokemon>>() {
+    inner class LocalListPokemonObservable : DefaultObserver<List<PokemonListItem>>() {
         override fun onStart() {
             super.onStart()
             view.showLoading()
         }
 
-        override fun onNext(t: List<Pokemon>) {
+        override fun onNext(t: List<PokemonListItem>) {
             super.onNext(t)
             view.successListPokemon(PokemonModelMapper.transform(t))
         }
@@ -76,13 +76,13 @@ class ListPokemonPresenter @Inject constructor(
         }
     }
 
-    inner class ListPokemonObservable : DefaultObserver<List<Pokemon>>() {
+    inner class ListPokemonObservable : DefaultObserver<List<PokemonListItem>>() {
         override fun onStart() {
             super.onStart()
             view.showLoading()
         }
 
-        override fun onNext(t: List<Pokemon>) {
+        override fun onNext(t: List<PokemonListItem>) {
             super.onNext(t)
             savePokemon(t)
             view.successListPokemon(PokemonModelMapper.transform(t))
@@ -104,7 +104,7 @@ class ListPokemonPresenter @Inject constructor(
         }
     }
 
-    private fun savePokemon(data: List<Pokemon>) {
+    private fun savePokemon(data: List<PokemonListItem>) {
         saveListPokemonUseCase.bindParams(data)
         saveListPokemonUseCase.execute(SaveListPokemonObservable())
     }

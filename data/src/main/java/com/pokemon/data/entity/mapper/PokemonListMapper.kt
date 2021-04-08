@@ -2,15 +2,15 @@ package com.pokemon.data.entity.mapper
 
 import com.pokemon.data.entity.NamedApiResource
 import com.pokemon.data.entity.NamedApiResourceList
-import com.pokemon.domain.model.Pokemon
+import com.pokemon.domain.model.PokemonListItem
 import java.util.*
 
-object PokemonMapper {
-    fun transform(response: NamedApiResourceList?): List<Pokemon>? {
+object PokemonListMapper {
+    fun transform(response: NamedApiResourceList?): List<PokemonListItem>? {
         if (response == null) {
             return null
         }
-        val list: MutableList<Pokemon> = ArrayList()
+        val list: MutableList<PokemonListItem> = ArrayList()
         for (item in response.results) {
             val data = transform(item)
             if (data != null)
@@ -19,10 +19,10 @@ object PokemonMapper {
         return list
     }
 
-    private fun transform(entity: NamedApiResource?): Pokemon? {
+    private fun transform(entity: NamedApiResource?): PokemonListItem? {
         if (entity == null) {
             return null
         }
-        return Pokemon(entity.id, entity.name, entity.url)
+        return PokemonListItem(entity.id, entity.name, entity.url)
     }
 }
