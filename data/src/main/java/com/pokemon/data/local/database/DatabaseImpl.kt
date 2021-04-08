@@ -10,7 +10,7 @@ import io.reactivex.ObservableEmitter
 class DatabaseImpl(val database: LocalDatabase) : Database {
     override fun getAllPokemon(offset: Int, limit: Int): Observable<List<Pokemon>> {
         return Observable.create { emitter: ObservableEmitter<List<Pokemon>> ->
-            val pokemons: List<PokemonTable> = database.getPokemonDao().getAll(offset, limit)
+            val pokemons: List<PokemonTable> = database.getPokemonDao().getAllBetween(offset, limit)
             if (!emitter.isDisposed) {
                 if (pokemons == null || pokemons.isEmpty()) {
                     emitter.onError(PokemonException("No data"))

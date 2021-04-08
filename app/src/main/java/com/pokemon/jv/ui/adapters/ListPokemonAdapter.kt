@@ -26,15 +26,10 @@ class ListPokemonAdapter @Inject constructor() :
     inner class ListPokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(model: PokemonModel?, position: Int) {
             if (model != null) {
-                binding.tvName.text = model.name
+                binding.tvName.text = model.name?.capitalize()
                 if (model.url != null) {
-                    val imageUrl = model.url!!
-                    val idPokemon = imageUrl.substring(
-                        imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/") + 1,
-                        imageUrl.length - 1
-                    )
                     Glide.with(context)
-                        .load("https://pokeres.bastionbot.org/images/pokemon/$idPokemon.png")
+                        .load("https://pokeres.bastionbot.org/images/pokemon/${model.id}.png")
                         .placeholder(R.drawable.ic_placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .skipMemoryCache(false)

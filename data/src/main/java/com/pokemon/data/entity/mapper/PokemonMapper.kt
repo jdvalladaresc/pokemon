@@ -23,6 +23,6 @@ object PokemonMapper {
         if (entity == null) {
             return null
         }
-        return Pokemon(entity.name, entity.url)
+        return Pokemon(entity.id, entity.name, entity.url)
     }
 }

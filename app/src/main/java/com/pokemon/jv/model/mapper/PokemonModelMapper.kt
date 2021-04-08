@@ -22,6 +22,11 @@ object PokemonModelMapper {
         if (entity == null) {
             return null
         }
-        return PokemonModel(entity.name, entity.url)
+        val imageUrl = entity.url!!
+        val idPokemon = imageUrl.substring(
+            imageUrl.substring(0, imageUrl.length - 1).lastIndexOf("/") + 1,
+            imageUrl.length - 1
+        )
+        return PokemonModel(idPokemon.toInt(), entity.name, entity.url)
     }
 }
